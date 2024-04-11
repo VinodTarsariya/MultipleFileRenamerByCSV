@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             selectFileButton = new Button();
             dataGridView = new DataGridView();
             renameFilesButton = new Button();
@@ -105,6 +106,7 @@
             Controls.Add(renameFilesButton);
             Controls.Add(dataGridView);
             Controls.Add(selectFileButton);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
             Text = "Shri Hari | Multiple File Rename using CSV file";
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
