@@ -28,17 +28,32 @@ namespace MultipleFileRenamerByCSV
                     table.Columns.Add("SuggestedFilePath1");
                     table.Columns.Add("SuggestedFilePath2");
 
+                    string prefix = prefixTextBox.Text.Trim(); // Get prefix from TextBox and trim whitespace
+
                     foreach (string line in lines)
                     {
                         string[] parts = line.Split(',');
                         string oldFilePath1 = parts[0];
                         string oldFilePath2 = parts[1];
                         string newFileName = parts[2];
-                        string prefix = prefixTextBox.Text; // Get prefix from TextBox
 
-                        // Calculate suggested file paths for first and second columns
-                        string suggestedFilePath1 = Path.Combine(Path.GetDirectoryName(oldFilePath1), $"{prefix}_{newFileName}{Path.GetExtension(oldFilePath1)}");
-                        string suggestedFilePath2 = Path.Combine(Path.GetDirectoryName(oldFilePath2), $"{prefix}_{newFileName}{Path.GetExtension(oldFilePath2)}");
+                        // Construct suggested file paths based on prefix
+                        string suggestedFileName1;
+                        string suggestedFileName2;
+
+                        if (!string.IsNullOrEmpty(prefix))
+                        {
+                            suggestedFileName1 = $"{prefix}_{newFileName}{Path.GetExtension(oldFilePath1)}";
+                            suggestedFileName2 = $"{prefix}_{newFileName}{Path.GetExtension(oldFilePath2)}";
+                        }
+                        else
+                        {
+                            suggestedFileName1 = $"{newFileName}{Path.GetExtension(oldFilePath1)}";
+                            suggestedFileName2 = $"{newFileName}{Path.GetExtension(oldFilePath2)}";
+                        }
+
+                        string suggestedFilePath1 = Path.Combine(Path.GetDirectoryName(oldFilePath1), suggestedFileName1);
+                        string suggestedFilePath2 = Path.Combine(Path.GetDirectoryName(oldFilePath2), suggestedFileName2);
 
                         table.Rows.Add(oldFilePath1, oldFilePath2, newFileName, suggestedFilePath1, suggestedFilePath2);
                     }
