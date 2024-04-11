@@ -25,8 +25,8 @@ namespace MultipleFileRenamerByCSV
                     table.Columns.Add("OldFilePath1");
                     table.Columns.Add("OldFilePath2");
                     table.Columns.Add("NewFileName");
-                    table.Columns.Add("SuggestedFileName1");
-                    table.Columns.Add("SuggestedFileName2");
+                    table.Columns.Add("SuggestedFilePath1");
+                    table.Columns.Add("SuggestedFilePath2");
 
                     foreach (string line in lines)
                     {
@@ -36,11 +36,11 @@ namespace MultipleFileRenamerByCSV
                         string newFileName = parts[2];
                         string prefix = prefixTextBox.Text; // Get prefix from TextBox
 
-                        // Calculate suggested file names for first and second columns
-                        string suggestedFileName1 = $"{prefix}_{newFileName}{Path.GetExtension(oldFilePath1)}";
-                        string suggestedFileName2 = $"{prefix}_{newFileName}{Path.GetExtension(oldFilePath2)}";
+                        // Calculate suggested file paths for first and second columns
+                        string suggestedFilePath1 = Path.Combine(Path.GetDirectoryName(oldFilePath1), $"{prefix}_{newFileName}{Path.GetExtension(oldFilePath1)}");
+                        string suggestedFilePath2 = Path.Combine(Path.GetDirectoryName(oldFilePath2), $"{prefix}_{newFileName}{Path.GetExtension(oldFilePath2)}");
 
-                        table.Rows.Add(oldFilePath1, oldFilePath2, newFileName, suggestedFileName1, suggestedFileName2);
+                        table.Rows.Add(oldFilePath1, oldFilePath2, newFileName, suggestedFilePath1, suggestedFilePath2);
                     }
 
                     dataGridView.DataSource = table;
@@ -58,9 +58,9 @@ namespace MultipleFileRenamerByCSV
                 {
                     string newFileName = row["NewFileName"].ToString();
 
-                    // Update suggested file names in the respective columns
-                    row["SuggestedFileName1"] = $"{prefix}_{newFileName}{Path.GetExtension(row["OldFilePath1"].ToString())}";
-                    row["SuggestedFileName2"] = $"{prefix}_{newFileName}{Path.GetExtension(row["OldFilePath2"].ToString())}";
+                    // Update suggested file paths in the respective columns
+                    row["SuggestedFilePath1"] = Path.Combine(Path.GetDirectoryName(row["OldFilePath1"].ToString()), $"{prefix}_{newFileName}{Path.GetExtension(row["OldFilePath1"].ToString())}");
+                    row["SuggestedFilePath2"] = Path.Combine(Path.GetDirectoryName(row["OldFilePath2"].ToString()), $"{prefix}_{newFileName}{Path.GetExtension(row["OldFilePath2"].ToString())}");
                 }
             }
         }
@@ -71,14 +71,12 @@ namespace MultipleFileRenamerByCSV
             {
                 string oldFilePath1 = row.Cells["OldFilePath1"].Value.ToString();
                 string oldFilePath2 = row.Cells["OldFilePath2"].Value.ToString();
-                string suggestedFileName1 = row.Cells["SuggestedFileName1"].Value.ToString();
-                string suggestedFileName2 = row.Cells["SuggestedFileName2"].Value.ToString();
+                string suggestedFilePath1 = row.Cells["SuggestedFilePath1"].Value.ToString();
+                string suggestedFilePath2 = row.Cells["SuggestedFilePath2"].Value.ToString();
 
                 try
                 {
                     // Create new files with suggested file names
-                    string suggestedFilePath1 = Path.Combine(Path.GetDirectoryName(oldFilePath1), suggestedFileName1);
-                    string suggestedFilePath2 = Path.Combine(Path.GetDirectoryName(oldFilePath2), suggestedFileName2);
                     File.Copy(oldFilePath1, suggestedFilePath1);
                     File.Copy(oldFilePath2, suggestedFilePath2);
                 }
