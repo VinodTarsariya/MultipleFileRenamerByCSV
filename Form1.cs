@@ -47,13 +47,30 @@ namespace MultipleFileRenamerByCSV
             }
         }
 
+        private void suggestButton_Click(object sender, EventArgs e)
+        {
+            string prefix = prefixTextBox.Text;
+            DataTable table = (DataTable)dataGridView.DataSource;
+            if (table != null)
+            {
+                foreach (DataRow row in table.Rows)
+                {
+                    string newFileName = row["NewFileName"].ToString();
+                    string suggestedFileName = $"{prefix}_{newFileName}";
+                    string suggestedFilePath1 = Path.Combine(Path.GetDirectoryName(row["OldFilePath1"].ToString()), suggestedFileName);
+                    string suggestedFilePath2 = Path.Combine(Path.GetDirectoryName(row["OldFilePath2"].ToString()), suggestedFileName);
+                    row["SuggestedFilePath1"] = suggestedFilePath1;
+                    row["SuggestedFilePath2"] = suggestedFilePath2;
+                }
+            }
+        }
+
         private void renameFilesButton_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in dataGridView.Rows)
             {
                 string oldFilePath1 = row.Cells["OldFilePath1"].Value.ToString();
                 string oldFilePath2 = row.Cells["OldFilePath2"].Value.ToString();
-                string newFileName = row.Cells["NewFileName"].Value.ToString();
                 string suggestedFilePath1 = row.Cells["SuggestedFilePath1"].Value.ToString();
                 string suggestedFilePath2 = row.Cells["SuggestedFilePath2"].Value.ToString();
 

@@ -33,6 +33,7 @@
             renameFilesButton = new Button();
             prefixTextBox = new TextBox();
             label1 = new Label();
+            suggestButton = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
             // 
@@ -57,12 +58,13 @@
             // 
             // renameFilesButton
             // 
-            renameFilesButton.Location = new Point(361, 18);
+            renameFilesButton.Location = new Point(629, 18);
             renameFilesButton.Name = "renameFilesButton";
             renameFilesButton.Size = new Size(113, 23);
             renameFilesButton.TabIndex = 2;
             renameFilesButton.Text = "Rename File";
             renameFilesButton.UseVisualStyleBackColor = true;
+            renameFilesButton.Click += renameFilesButton_Click;
             // 
             // prefixTextBox
             // 
@@ -80,11 +82,22 @@
             label1.TabIndex = 4;
             label1.Text = "New file prefix: ";
             // 
+            // suggestButton
+            // 
+            suggestButton.Location = new Point(354, 18);
+            suggestButton.Name = "suggestButton";
+            suggestButton.Size = new Size(75, 23);
+            suggestButton.TabIndex = 5;
+            suggestButton.Text = "Suggest New Name";
+            suggestButton.UseVisualStyleBackColor = true;
+            suggestButton.Click += suggestButton_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(suggestButton);
             Controls.Add(label1);
             Controls.Add(prefixTextBox);
             Controls.Add(renameFilesButton);
@@ -103,5 +116,6 @@
         private Button renameFilesButton;
         private TextBox prefixTextBox;
         private Label label1;
+        private Button suggestButton;
     }
 }
