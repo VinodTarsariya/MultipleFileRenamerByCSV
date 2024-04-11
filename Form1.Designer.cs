@@ -49,6 +49,7 @@
             // 
             // dataGridView
             // 
+            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView.Dock = DockStyle.Bottom;
             dataGridView.Location = new Point(0, 61);
