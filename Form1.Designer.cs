@@ -49,6 +49,7 @@
             // 
             // dataGridView
             // 
+            dataGridView.AllowUserToAddRows = false;
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView.Dock = DockStyle.Bottom;
