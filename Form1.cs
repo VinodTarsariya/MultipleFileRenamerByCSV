@@ -57,7 +57,7 @@ namespace MultipleFileRenamerByCSV
         {
             if (!string.IsNullOrEmpty(prefix))
             {
-                return $"{prefix}_{newFileName}{Path.GetExtension(oldFilePath)}";
+                return $"{prefix}{newFileName}{Path.GetExtension(oldFilePath)}";
             }
             else
             {

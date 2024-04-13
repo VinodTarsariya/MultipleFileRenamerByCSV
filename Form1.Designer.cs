@@ -56,9 +56,9 @@
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView.Dock = DockStyle.Bottom;
-            dataGridView.Location = new Point(0, 61);
+            dataGridView.Location = new Point(0, 64);
             dataGridView.Name = "dataGridView";
-            dataGridView.Size = new Size(800, 389);
+            dataGridView.Size = new Size(1064, 617);
             dataGridView.TabIndex = 1;
             // 
             // renameFilesButton
@@ -117,7 +117,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1064, 681);
             Controls.Add(label2);
             Controls.Add(prefixTextBox2);
             Controls.Add(suggestButton);
