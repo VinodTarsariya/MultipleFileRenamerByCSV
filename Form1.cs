@@ -101,17 +101,17 @@ namespace MultipleFileRenamerByCSV
 
                 try
                 {
-                    // Create new files with suggested file names
-                    File.Copy(oldFilePath1, suggestedFilePath1);
-                    File.Copy(oldFilePath2, suggestedFilePath2);
+                    // Rename the files instead of copying them
+                    File.Move(oldFilePath1, suggestedFilePath1);
+                    File.Move(oldFilePath2, suggestedFilePath2);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error creating new files: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Error renaming files: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
-            MessageBox.Show("File creation completed.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("File renaming completed.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
