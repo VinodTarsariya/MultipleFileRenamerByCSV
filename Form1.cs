@@ -67,27 +67,19 @@ namespace MultipleFileRenamerByCSV
 
         private void suggestButton_Click(object sender, EventArgs e)
         {
-            string prefix = prefixTextBox1.Text.Trim(); // Trim to remove any leading or trailing whitespace
+            string prefix1 = prefixTextBox1.Text.Trim(); // Get prefix for first column
+            string prefix2 = prefixTextBox2.Text.Trim(); // Get prefix for second column
             DataTable table = (DataTable)dataGridView.DataSource;
+
             if (table != null)
             {
                 foreach (DataRow row in table.Rows)
                 {
                     string newFileName = row["NewFileName"].ToString();
 
-                    // Check if prefix is empty or null
-                    if (!string.IsNullOrEmpty(prefix))
-                    {
-                        // Update suggested file paths with prefix
-                        row["SuggestedFilePath1"] = Path.Combine(Path.GetDirectoryName(row["OldFilePath1"].ToString()), $"{prefix}_{newFileName}{Path.GetExtension(row["OldFilePath1"].ToString())}");
-                        row["SuggestedFilePath2"] = Path.Combine(Path.GetDirectoryName(row["OldFilePath2"].ToString()), $"{prefix}_{newFileName}{Path.GetExtension(row["OldFilePath2"].ToString())}");
-                    }
-                    else
-                    {
-                        // Update suggested file paths without prefix
-                        row["SuggestedFilePath1"] = Path.Combine(Path.GetDirectoryName(row["OldFilePath1"].ToString()), $"{newFileName}{Path.GetExtension(row["OldFilePath1"].ToString())}");
-                        row["SuggestedFilePath2"] = Path.Combine(Path.GetDirectoryName(row["OldFilePath2"].ToString()), $"{newFileName}{Path.GetExtension(row["OldFilePath2"].ToString())}");
-                    }
+                    // Update suggested file paths in the respective columns
+                    row["SuggestedFilePath1"] = ConstructSuggestedFileName(prefix1, newFileName, row["OldFilePath1"].ToString());
+                    row["SuggestedFilePath2"] = ConstructSuggestedFileName(prefix2, newFileName, row["OldFilePath2"].ToString());
                 }
             }
         }
