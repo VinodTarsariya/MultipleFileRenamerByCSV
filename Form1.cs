@@ -28,7 +28,8 @@ namespace MultipleFileRenamerByCSV
                     table.Columns.Add("SuggestedFilePath1");
                     table.Columns.Add("SuggestedFilePath2");
 
-                    string prefix = prefixTextBox.Text.Trim(); // Get prefix from TextBox and trim whitespace
+                    string prefix1 = prefixTextBox1.Text.Trim(); // Get prefix for first column
+                    string prefix2 = prefixTextBox2.Text.Trim(); // Get prefix for second column
 
                     foreach (string line in lines)
                     {
@@ -37,20 +38,9 @@ namespace MultipleFileRenamerByCSV
                         string oldFilePath2 = parts[1];
                         string newFileName = parts[2];
 
-                        // Construct suggested file paths based on prefix
-                        string suggestedFileName1;
-                        string suggestedFileName2;
-
-                        if (!string.IsNullOrEmpty(prefix))
-                        {
-                            suggestedFileName1 = $"{prefix}_{newFileName}{Path.GetExtension(oldFilePath1)}";
-                            suggestedFileName2 = $"{prefix}_{newFileName}{Path.GetExtension(oldFilePath2)}";
-                        }
-                        else
-                        {
-                            suggestedFileName1 = $"{newFileName}{Path.GetExtension(oldFilePath1)}";
-                            suggestedFileName2 = $"{newFileName}{Path.GetExtension(oldFilePath2)}";
-                        }
+                        // Construct suggested file paths using respective prefixes
+                        string suggestedFileName1 = ConstructSuggestedFileName(prefix1, newFileName, oldFilePath1);
+                        string suggestedFileName2 = ConstructSuggestedFileName(prefix2, newFileName, oldFilePath2);
 
                         string suggestedFilePath1 = Path.Combine(Path.GetDirectoryName(oldFilePath1), suggestedFileName1);
                         string suggestedFilePath2 = Path.Combine(Path.GetDirectoryName(oldFilePath2), suggestedFileName2);
@@ -63,9 +53,21 @@ namespace MultipleFileRenamerByCSV
             }
         }
 
+        private string ConstructSuggestedFileName(string prefix, string newFileName, string oldFilePath)
+        {
+            if (!string.IsNullOrEmpty(prefix))
+            {
+                return $"{prefix}_{newFileName}{Path.GetExtension(oldFilePath)}";
+            }
+            else
+            {
+                return $"{newFileName}{Path.GetExtension(oldFilePath)}";
+            }
+        }
+
         private void suggestButton_Click(object sender, EventArgs e)
         {
-            string prefix = prefixTextBox.Text.Trim(); // Trim to remove any leading or trailing whitespace
+            string prefix = prefixTextBox1.Text.Trim(); // Trim to remove any leading or trailing whitespace
             DataTable table = (DataTable)dataGridView.DataSource;
             if (table != null)
             {
