@@ -78,9 +78,21 @@ namespace MultipleFileRenamerByCSV
                     string newFileName = row["NewFileName"].ToString();
 
                     // Update suggested file paths in the respective columns
-                    row["SuggestedFilePath1"] = ConstructSuggestedFileName(prefix1, newFileName, row["OldFilePath1"].ToString());
-                    row["SuggestedFilePath2"] = ConstructSuggestedFileName(prefix2, newFileName, row["OldFilePath2"].ToString());
+                    row["SuggestedFilePath1"] = ConstructSuggestedFilePath(prefix1, newFileName, row["OldFilePath1"].ToString());
+                    row["SuggestedFilePath2"] = ConstructSuggestedFilePath(prefix2, newFileName, row["OldFilePath2"].ToString());
                 }
+            }
+        }
+
+        private string ConstructSuggestedFilePath(string prefix, string newFileName, string oldFilePath)
+        {
+            if (!string.IsNullOrEmpty(prefix))
+            {
+                return Path.Combine(Path.GetDirectoryName(oldFilePath), $"{prefix}_{newFileName}{Path.GetExtension(oldFilePath)}");
+            }
+            else
+            {
+                return Path.Combine(Path.GetDirectoryName(oldFilePath), $"{newFileName}{Path.GetExtension(oldFilePath)}");
             }
         }
 
